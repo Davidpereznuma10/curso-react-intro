@@ -1,6 +1,9 @@
+import "./TodoSearch.css"
 function TodoSearch(){
     return(
-        <input placeholder="Terminar los cursos"/>
+      <input
+      placeholder="Add your ToDo"
+      className="TodoSearch"/>
     )
   };
 
