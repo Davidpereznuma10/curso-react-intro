@@ -15,7 +15,7 @@ function App() {
   return (
     <>
         
-        <TodoCounter complete={16} total={20} />
+        <TodoCounter completed={16} total={20} />
         <TodoSearch/>
 
         <TodoList>
