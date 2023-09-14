@@ -8,7 +8,7 @@ import React from 'react';
 const defaultTodos = [
   {text:'Finished React course', completed: false},
   {text:'Finished Pasport course', completed: false},
-  {text:'Finished db course', completed: true},
+  {text:'Finished db course', completed: false},
   {text:'Had a sandwich', completed: true},
   {text:'finished my sandwich', completed: true },
 ]
@@ -27,6 +27,24 @@ function App() {
       return todotext.includes(search)
     }
   );
+  
+  const check = (text)=>{
+    const newTodos = [...Todos];
+    const todoIndex = newTodos.findIndex(
+      (todo) => todo.text === text
+    )
+    newTodos[todoIndex].completed = true;
+    setTodos(newTodos);
+  };
+  const deleteTodo = (text)=>{
+    const newTodos = [...Todos];
+    const todoIndex = newTodos.findIndex(
+      (todo) => todo.text === text
+    )
+    newTodos.splice(todoIndex, 1);
+    setTodos(newTodos);
+  };
+
   return (
     <>
         
@@ -43,6 +61,8 @@ function App() {
                 key={todo.text}
                 text={todo.text}
                 completed={todo.completed}
+                check={()=>check(todo.text)}
+                deleteTodo={()=>deleteTodo(todo.text)}
               />
             ))}
         </TodoList>
