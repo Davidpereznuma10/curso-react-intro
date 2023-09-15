@@ -1,20 +1,20 @@
-import { TodoCounter } from './TodoCounter';
-import { TodoSearch } from './TodoSearch';
-import { TodoList } from './TodoList';
-import { TodoItem } from './TodoItem';
-import { CreateTodoButton } from './CreateTodoButton';
+import { TodoCounter } from './components/TodoCounter';
+import { TodoSearch } from './components/TodoSearch';
+import { TodoList } from './components/TodoList';
+import { TodoItem } from './components/TodoItem';
+import { CreateTodoButton } from './components/CreateTodoButton';
 import React from 'react';
 
-const defaultTodos = [
-  {text:'Finished React course', completed: false},
-  {text:'Finished Pasport course', completed: false},
-  {text:'Finished db course', completed: false},
-  {text:'Had a sandwich', completed: true},
-  {text:'finished my sandwich', completed: true },
-]
-
 function App() {
-  const [ Todos, setTodos ] = React.useState(defaultTodos)
+  const localStorageTodos=localStorage.getItem('Todos_v1');
+  let parsedTodos;
+  if(!localStorageTodos){
+    localStorage.setItem('Todos_v1',JSON.stringify([]));
+    parsedTodos = [];
+  }else{
+    parsedTodos = JSON.parse(localStorageTodos);
+   }
+  const [ Todos, setTodos ] = React.useState(parsedTodos)
   const [ searchValue, setSerchValue ] = React.useState('');
 
   const completedTodos = Todos.filter(todo => !!todo.completed).length;
@@ -28,13 +28,17 @@ function App() {
     }
   );
   
+  const saveTodo = (newTodos)=>{
+    localStorage.setItem('Todos_v1', JSON.stringify(newTodos))
+    setTodos(newTodos)
+  } 
   const check = (text)=>{
     const newTodos = [...Todos];
     const todoIndex = newTodos.findIndex(
       (todo) => todo.text === text
     )
     newTodos[todoIndex].completed = true;
-    setTodos(newTodos);
+    saveTodo(newTodos);
   };
   const deleteTodo = (text)=>{
     const newTodos = [...Todos];
@@ -42,7 +46,7 @@ function App() {
       (todo) => todo.text === text
     )
     newTodos.splice(todoIndex, 1);
-    setTodos(newTodos);
+    saveTodo(newTodos);
   };
 
   return (
@@ -67,7 +71,9 @@ function App() {
             ))}
         </TodoList>
 
-        <CreateTodoButton/>
+        <CreateTodoButton
+          createTodo={createTodo}
+        />
        
     </>
   );
