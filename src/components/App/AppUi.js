@@ -3,7 +3,7 @@ import{TodoSearch}from '../TodoSearch';
 import{TodoList}from '../TodoList';
 import{TodoItem}from '../TodoItem';
 import{CreateTodoButton}from '../CreateTodoButton';
-function AppUI({completedTodos,totalTodos,searchValue,setSearchValue,searchedTodos,check,deleteTodo,}){
+function AppUI({ loading, error,completedTodos,totalTodos,searchValue,setSearchValue,searchedTodos,check,deleteTodo,}){
     
     return(
     <>
@@ -14,6 +14,9 @@ function AppUI({completedTodos,totalTodos,searchValue,setSearchValue,searchedTod
                 searchValue={searchValue}
                 setSearchValue={setSearchValue}/>
             <TodoList>
+                 {loading && <p>Cargando...</p>}
+                {error && <p>Hubo un error!!</p>}
+                {(!loading && searchedTodos.length === 0) && <p>¡Crea tu primer TODO!</p>}
                 {searchedTodos.map(todo=>(
                     <TodoItem
                         key={todo.text}
