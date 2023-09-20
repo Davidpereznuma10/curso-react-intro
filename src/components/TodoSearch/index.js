@@ -1,14 +1,14 @@
 import React from "react";
 import "./style/index.css"
 
-function TodoSearch({ serchValue, setSerchValue }){
+function TodoSearch({ searchValue, setSearchValue }){
   return(
       <input
       placeholder="Find your ToDo"
       className="TodoSearch"
-      value={serchValue}
+      value={searchValue}
       onChange={(event)=>{
-        setSerchValue(event.target.value)
+        setSearchValue(event.target.value)
        }}/>
     )
   };
