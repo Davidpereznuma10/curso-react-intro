@@ -3,9 +3,15 @@ import React from 'react';
 import{ AppUI }from './AppUi';
 
 function App(){
-  const[todos,saveTodos]= UseLocalStorage('Todo_v1', []);
-  const[searchValue,setSearchValue]=React.useState('');
-
+  const {
+    item: todos,
+    saveItem: saveTodos,
+    loading,
+    error,
+  } = UseLocalStorage('Todo_v1', []);
+  
+  const [searchValue, setSearchValue] = React.useState('');
+  
   const completedTodos= todos.filter(todo=>!!todo.completed).length;
   const totalTodos= todos.length;
 
@@ -27,6 +33,8 @@ function App(){
   };
   return(
     <AppUI
+      loading={loading}
+      error={error}
       completedTodos={completedTodos}
       totalTodos={totalTodos}
       searchValue={searchValue}
