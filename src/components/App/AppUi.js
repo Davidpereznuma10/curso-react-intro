@@ -3,7 +3,7 @@ import{TodoSearch}from '../TodoSearch';
 import{TodoList}from '../TodoList';
 import{TodoItem}from '../TodoItem';
 import{CreateTodoButton}from '../CreateTodoButton';
-function AppUI({completedTodos,totalTodos,searchValue,setSearchValue,searchedTodos,completeTodo,deleteTodo,}){
+function AppUI({completedTodos,totalTodos,searchValue,setSearchValue,searchedTodos,check,deleteTodo,}){
     
     return(
     <>
@@ -19,8 +19,8 @@ function AppUI({completedTodos,totalTodos,searchValue,setSearchValue,searchedTod
                         key={todo.text}
                         text={todo.text}
                         completed={todo.completed}
-                        onComplete={()=>completeTodo(todo.text)}
-                        onDelete={()=>deleteTodo(todo.text)}/>
+                        check={()=>check(todo.text)}
+                        deleteTodo={()=>deleteTodo(todo.text)}/>
                 ))}
             </TodoList>
         <CreateTodoButton/>
